@@ -1,6 +1,8 @@
 # java-todolist-gui
 ## A swing gui with a sqlite database using the sormula ORM
 
+![Alt text](/Screenshot.png?raw=true "Screenshot")
+
 Run the python script first with:
 
 python setup_db.py
