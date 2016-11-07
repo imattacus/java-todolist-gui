@@ -16,11 +16,11 @@ public class Section {
 		this.name = name;
 	}
 	
-	public int getId() {
+	public int getSectionid() {
 		return sectionid;
 	}
 	
-	public void setId(int id) {
+	public void setSectionid(int id) {
 		this.sectionid = id;
 	}
 	
@@ -30,5 +30,9 @@ public class Section {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String toString() {
+		return name;
 	}
 }
