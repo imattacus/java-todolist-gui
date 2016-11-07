@@ -13,10 +13,19 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+/**
+ * TaskListView represents the list of tasks displayed in the GUI, updates to show most recent tasklist in model
+ * @author mattcallaway
+ *
+ */
 public class TasklistView extends JPanel implements Observer {
 	TodoModel model;
 	List<Task> tasks;
 	
+	/**
+	 * create TaskListView
+	 * @param model the todolist model
+	 */
 	public TasklistView(TodoModel model) {
 		super(new GridBagLayout());
 		this.model = model;
@@ -27,6 +36,9 @@ public class TasklistView extends JPanel implements Observer {
 		populateTaskList();
 	}
 	
+	/**
+	 * Fills the tasklist with tasks from the model
+	 */
 	private void populateTaskList() {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = gbc.NORTH;
@@ -43,7 +55,11 @@ public class TasklistView extends JPanel implements Observer {
 	}
 
 	@Override
+	/**
+	 * Update when model changes to show most recent tasklist
+	 */
 	public void update(Observable o, Object arg) {
+		//Checks if the update is relevant to the tasks
 		if (model.tasksHaveChanged()) {
 			tasks = model.getTasksInView();
 			this.removeAll();

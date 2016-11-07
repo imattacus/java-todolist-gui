@@ -14,8 +14,18 @@ import javax.swing.JTextField;
 
 import org.sormula.SormulaException;
 
+/**
+ * Dialog window for creating a new task
+ * @author mattcallaway
+ *
+ */
 public class NewTaskDialog extends JDialog {
 
+	/**
+	 * Create a new NewTaskDialog
+	 * @param frame the parent frame of this dialog
+	 * @param model the todo list model
+	 */
 	public NewTaskDialog(JFrame frame, TodoModel model) {
 		super(frame, "New Task", ModalityType.DOCUMENT_MODAL);
 		JPanel panel = new JPanel();
@@ -35,11 +45,12 @@ public class NewTaskDialog extends JDialog {
 		JButton create = new JButton("Create");
 		JButton cancel = new JButton("Cancel");
 		
+		//Action listener for create button, creates the task in the model
 		create.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == create) {
-					if (input.getText() != " ") { //Text input field cannot be null, very crude validation
+					if (input.getText() != "") { //Text input field cannot be null, very crude validation
 						if (model.newTask(input.getText(), ((Section) sections.getSelectedItem()).getSectionid())) {
 							getNewTaskDialog().dispose();
 						} else {
@@ -52,6 +63,7 @@ public class NewTaskDialog extends JDialog {
 			}
 		});
 		
+		//Cancel button action listener closes dialog
 		cancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -90,6 +102,10 @@ public class NewTaskDialog extends JDialog {
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Returns the new task dialog for use action listener
+	 * @return this
+	 */
 	private NewTaskDialog getNewTaskDialog() {
 		return this;
 	}

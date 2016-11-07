@@ -12,9 +12,18 @@ import javax.swing.SwingUtilities;
 
 import org.sormula.SormulaException;
 
+/**
+ * Control Bar component comprising of Add task button and show completed tasks checkbox
+ * @author mattcallaway
+ *
+ */
 public class ControlBarView extends JPanel {
 	TodoModel model;
 	
+	/**
+	 * Create ControlBarView for specified model
+	 * @param model the todo list model to use
+	 */
 	public ControlBarView(TodoModel model) {
 		this.model = model;
 		
@@ -22,6 +31,7 @@ public class ControlBarView extends JPanel {
 		JCheckBox showcomplete = new JCheckBox();
 		showcomplete.setText("Show Completed Tasks");
 		
+		//Show complete checkbox action listener toggles whether model is showing completed tasks
 		showcomplete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -35,6 +45,7 @@ public class ControlBarView extends JPanel {
 			}
 		});
 		
+		//Add button action listener opens New task Dialog to allow user to create a new task
 		add.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -49,6 +60,10 @@ public class ControlBarView extends JPanel {
 		this.add(showcomplete);
 	}
 	
+	/**
+	 * Returns the Control Bar View for use in action listeners and for creating dialog where parent is required
+	 * @return this
+	 */
 	private ControlBarView getControlBarView() {
 		return this;
 	}

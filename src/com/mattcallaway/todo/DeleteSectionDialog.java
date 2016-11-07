@@ -13,7 +13,17 @@ import javax.swing.JPanel;
 
 import org.sormula.SormulaException;
 
+/**
+ * Dialog box to delete a section
+ * @author mattcallaway
+ *
+ */
 public class DeleteSectionDialog extends JDialog {
+	/**
+	 * Create a DeleteSectionDialog
+	 * @param frame the parent frame this Dialog box belongs to
+	 * @param model the todo list model
+	 */
 	public DeleteSectionDialog (JFrame frame, TodoModel model) {
 		super(frame, "Delete Section", ModalityType.DOCUMENT_MODAL);
 		JPanel panel = new JPanel(new GridBagLayout());

@@ -18,9 +18,19 @@ import javax.swing.SwingUtilities;
 
 import org.sormula.SormulaException;
 
+/**
+ * The main JPanel of the todo list
+ * @author mattcallaway
+ *
+ */
 public class TodoComponent extends JPanel {
 	TodoModel model;
 	
+	/**
+	 * Create the TodoComponent
+	 * @param controller the TodoController associated with this todo list
+	 * @throws SormulaException
+	 */
 	@SuppressWarnings("serial")
 	public TodoComponent(TodoController controller) throws SormulaException {
 		super();
@@ -30,10 +40,12 @@ public class TodoComponent extends JPanel {
 			e.printStackTrace();
 		}
 		
+		//Instantiate the 3 main components of the GUI
 		SectionListView slv = new SectionListView(model);
 		TasklistView tlv = new TasklistView(model);
 		ControlBarView cbv = new ControlBarView(model);
 		
+		//Button for adding a new section and its action listener which creates a new section in the model with the inputted name
 		JButton newSection = new JButton("+");
 		newSection.setMargin(new Insets(0,0,0,0));
 		newSection.addActionListener(new ActionListener() {
@@ -48,6 +60,7 @@ public class TodoComponent extends JPanel {
 			}
 		});
 		
+		//Button for deleting a section and its action listener which creates a DeleteSectionDialog
 		JButton deleteSection = new JButton ("-");
 		deleteSection.setMargin(new Insets(0,0,0,0));
 		deleteSection.addActionListener(new ActionListener() {
@@ -60,6 +73,7 @@ public class TodoComponent extends JPanel {
 			}
 		});
 		
+		//Checkbox for toggling whether or not tasks from ALL sections should be shown in the tasklist. Disables the Section Combobox if true.
 		JCheckBox allSections = new JCheckBox();
 		allSections.setText("Show all sections");
 		allSections.setSelected(model.getShowAllSections());
@@ -82,6 +96,7 @@ public class TodoComponent extends JPanel {
 		
 		model.addObserver(tlv);
 		model.addObserver(slv);
+		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -122,10 +137,14 @@ public class TodoComponent extends JPanel {
 		add(cbv, c);
 	}
 	
+	/**
+	 * Preferred size of the component
+	 */
 	public Dimension getPreferredSize() {
 		return new Dimension(300,400);
 	}
 	
+	//This is used within the action listeners for creating a dialog as they require a parent 
 	private TodoComponent getTodoComponent() {
 		return this;
 	}

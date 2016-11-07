@@ -12,10 +12,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
+/**
+ * View of a single task in the tasklist
+ * @author mattcallaway
+ *
+ */
 public class TaskView extends JPanel{
 	Task task;
 	TodoModel model;
 	
+	/**
+	 * Creates a TaskView for the given task in the model
+	 * @param task The task that this TaskView should represent
+	 * @param model The TodoModel
+	 */
 	public TaskView(Task task, TodoModel model) {
 		super();
 		this.task = task;
@@ -39,8 +49,8 @@ public class TaskView extends JPanel{
 			}
 		});
 		
+		//Listens for right clicking on this TaskView
 		this.addMouseListener(new MouseListener() {
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.isPopupTrigger()) {
@@ -77,6 +87,10 @@ public class TaskView extends JPanel{
 		add(taskLabel);
 	}
 	
+	/**
+	 * Creates popup menu at mouse location
+	 * @param e The mouse event that triggered this
+	 */
 	private void popup(MouseEvent e) {
 		TaskPopup tp = new TaskPopup(model, task);
 		tp.show(this, e.getX(), e.getY());

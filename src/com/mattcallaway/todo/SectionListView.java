@@ -10,24 +10,31 @@ import javax.swing.JComboBox;
 
 import org.sormula.SormulaException;
 
+/**
+ * Combobox containing sections from the model with logic to update combobox when the list of sections changes in the model
+ * @author mattcallaway
+ *
+ */
 public class SectionListView extends JComboBox<Section> implements Observer {
 	TodoModel model;
-	private Section dummySection;
 	
+	/**
+	 * Create SectionListView 
+	 * @param model the todo list model
+	 * @throws SormulaException
+	 */
 	public SectionListView(TodoModel model) throws SormulaException {
 		super();
 		this.model = model;
-		dummySection = new Section("All Sections");
 		
+		//Listens for selecting items in combobox and updates model to change tasklist accordingly
 		this.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				// TODO Auto-generated method stub
 				if (e.getSource() instanceof SectionListView) {
 					JComboBox<?> c = (JComboBox<?>) e.getSource();
 					if(c.getSelectedItem() != null && (e.getStateChange() == ItemEvent.SELECTED && ((Section)c.getSelectedItem()).getSectionid() != model.getCurrentSectionid() )) {
 						//if the selected item is not null and the event is a newly selected item
-						System.out.println("Section changed");
 						Section selectedSection = (Section) c.getSelectedItem();
 						try {
 							model.setCurrentSectionId(selectedSection.getSectionid());
@@ -43,6 +50,10 @@ public class SectionListView extends JComboBox<Section> implements Observer {
 		populateSectionList();
 	}
 	
+	/**
+	 * Fills the section combobox with sections from the model
+	 * @throws SormulaException
+	 */
 	private void populateSectionList() throws SormulaException {
 		for (Section s : model.getSections()) {
 			this.addItem(s);
@@ -52,8 +63,13 @@ public class SectionListView extends JComboBox<Section> implements Observer {
 	}
 
 	@Override
+	/**
+	 * Update the SectionListView when changes in model are observed
+	 */
 	public void update(Observable o, Object arg) {
+		//Checks to see if the changes in model are relevant to the sections
 		if (model.sectionsHaveChanged()) {
+			//Save current combobox model
 			ComboBoxModel<Section> savedModel = this.getModel();
 			this.removeAllItems();
 			try {
