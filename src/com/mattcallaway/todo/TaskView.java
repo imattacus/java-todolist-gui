@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -37,9 +39,47 @@ public class TaskView extends JPanel{
 			}
 		});
 		
+		this.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					popup(e);
+				}
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					popup(e);
+				}
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					popup(e);
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+		
+		});
 		
 		add(check);
 		add(taskLabel);
+	}
+	
+	private void popup(MouseEvent e) {
+		TaskPopup tp = new TaskPopup(model, task);
+		tp.show(this, e.getX(), e.getY());
 	}
 	
 }

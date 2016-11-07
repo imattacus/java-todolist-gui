@@ -116,6 +116,16 @@ public class TodoModel extends Observable {
 		}
 	}
 	
+	public void deleteTask(Task t) {
+		try {
+			cont.deleteTask(t.getId());
+			updateTaskList();
+		} catch (SormulaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public Section getSection(int id) {
 		return null;
 	}
